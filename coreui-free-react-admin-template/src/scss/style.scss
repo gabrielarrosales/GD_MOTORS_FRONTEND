@@ -6,113 +6,180 @@
 @use "@coreui/chartjs/scss/coreui-chartjs";
 @use "vendors/simplebar";
 
-// Variables de Marca
-$red-gdmotors: #E31E24;
-$red-gradient: linear-gradient(90deg, #E31E24 0%, #ff4d4d 100%);
-$black-deep: #0a0a0a;
+// --- TIPOGRAFÍA PREMIUM (Inter) ---
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap');
 
-// --- ESTRUCTURA GENERAL ---
+// --- VARIABLES GD MOTORS ---
+$red-gdmotors: #E31E24;
+$red-dark: #4a0000; 
+$black-pure: #000000;
+$red-gradient: linear-gradient(90deg, #E31E24 0%, #ff4d4d 100%);
+
+// --- FONDO ATMOSFÉRICO ---
+body {
+  font-family: 'Inter', sans-serif !important;
+  background: radial-gradient(circle at 0% 0%, $red-dark 0%, $black-pure 70%) !important;
+  background-attachment: fixed;
+  min-height: 100vh;
+}
+
 .wrapper {
   width: 100%;
   padding-inline-start: var(--cui-sidebar-occupy-start, 0); 
   transition: padding 0.15s ease-in-out;
+  background: transparent !important;
 }
 
-// --- SIDEBAR GD MOTORS ---
+// --- SIDEBAR (CONTROL DE ISOTIPO ÚNICO) ---
 .sidebar {
-  transition: all 0.2s ease-in-out;
+  transition: none !important;
+  border-right: 1px solid rgba(255, 255, 255, 0.05) !important;
   
+  &.sidebar-narrow {
+    width: var(--cui-sidebar-width, 256px) !important;
+    .nav-link span, .nav-text, .sidebar-brand-full { display: block !important; }
+    .sidebar-brand-narrow { display: none !important; }
+  }
+
+  .sidebar-header {
+    height: 100px !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    // USAR ÚNICAMENTE EL ISOTIPO (Carga correcta mediante Webpack/Vite)
+    .sidebar-brand-full {
+      // Usamos url() y '~' para que el empaquetador gestione la importación
+      content: url("~../assets/brand/ISOTIPO_FONDO_NEGRO.png") !important; 
+      display: block !important;
+      max-height: 70px; // Ajuste sugerido para que no se vea gigante
+      width: auto;
+    }
+
+    // Ocultar cualquier otra variante automática de CoreUI
+    .d-dark-show, .d-light-show {
+      display: none !important;
+    }
+  }
+
   .nav-link {
     margin: 4px 10px;
     border-radius: 8px !important;
-    display: flex;
-    align-items: center;
-    min-height: 48px; // Altura táctil estándar
-
-    // --- SOLUCIÓN INTEGRAL PARA ICONOS CORTADOS ---
-    .nav-icon {
-      width: 1.5rem !important; // Tamaño estándar para que el icono respire
-      height: 1.5rem !important;
-      font-size: 1.5rem;
-      margin-right: 1rem;
-      flex-shrink: 0; // Imprescindible: Evita que el icono se deforme
-      
-      // ANULA DESPLAZAMIENTOS DE LA PLANTILLA
-      transition: none !important;
-      transform: none !important; 
-    }
-
+    font-weight: 500;
     &.active {
       background: $red-gradient !important;
-      box-shadow: 0 4px 12px rgba(227, 30, 36, 0.3);
       color: #fff !important;
-      .nav-icon { color: #fff !important; }
-    }
-
-    &:hover:not(.active) {
-      background: rgba($red-gdmotors, 0.1) !important;
-      color: $red-gdmotors !important;
-      .nav-icon { color: $red-gdmotors !important; }
-    }
-  }
-
-  // --- ARREGLO PARA MODO ICONOS (NARROW) ---
-  &.sidebar-narrow:not(.sidebar-narrow-unfoldable) {
-    // Forzamos el ancho para que el logo de arriba sea la guía
-    width: var(--cui-sidebar-narrow-width, 64px) !important;
-
-    .nav-link {
-      margin: 4px auto !important; 
-      justify-content: center !important;
-      padding: 0 !important;
-      // Creamos un contenedor cuadrado perfecto para el icono
-      width: 48px !important; 
-      height: 48px !important;
-
-      .nav-icon {
-        margin-right: 0 !important; // Elimina el margen derecho del icono
-        display: block; // Asegura que el icono use todo su espacio
-        // Vuelve a anular cualquier movimiento extraño
-        transform: none !important;
-      }
-      
-      // Oculta el texto por completo para que no empuje el icono
-      span:not(.nav-icon), .nav-text {
-        display: none !important;
-      }
+      box-shadow: 0 4px 15px rgba(227, 30, 36, 0.3);
     }
   }
 }
 
-// --- MODO CLARO (Legibilidad Negra) ---
-[data-coreui-theme="light"] {
-  .sidebar {
-    --cui-sidebar-bg: #ffffff;
-    --cui-sidebar-color: #000000;
-    --cui-sidebar-nav-link-color: #000000;
-    border-right: 1px solid #d8dbe0;
-    
-    .nav-link {
-      color: #000000 !important; // Texto negro puro
-      .nav-icon { color: #000000 !important; }
-    }
-    
-    .nav-title {
-      color: #000000 !important;
+// --- HEADER & FOOTER ---
+.header {
+  background-color: #0a0a0a !important;
+  border-bottom: 2px solid $red-gdmotors !important;
+  height: 65px;
+  --cui-header-bg: #0a0a0a;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5) !important;
+
+  .header-toggler, .nav-link {
+    color: #ffffff !important;
+    &:hover { color: $red-gdmotors !important; }
+  }
+
+  .breadcrumb-item {
+    color: rgba(255, 255, 255, 0.7) !important;
+    &.active { color: #ffffff !important; font-weight: 700; }
+    &::before { color: $red-gdmotors !important; }
+  }
+}
+
+.footer {
+  background-color: $black-pure !important;
+  border-top: 1px solid #333333 !important;
+  color: #ffffff !important;
+  --cui-footer-bg: #{$black-pure};
+}
+
+// --- FORMULARIOS CRISTAL LECHOSO ---
+.card {
+  background-color: rgba(255, 255, 255, 0.75) !important; 
+  backdrop-filter: blur(15px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+  color: #000000 !important;
+  border-radius: 16px !important;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4) !important;
+  
+  .card-header {
+    background-color: rgba(255, 255, 255, 0.3) !important;
+    border-bottom: 1.5px solid rgba($red-gdmotors, 0.2) !important;
+    color: $black-pure !important;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.85rem;
+    padding: 1rem 1.5rem;
+  }
+
+  .card-body {
+    padding: 2rem !important;
+
+    h1, h2, h3, h4, h5 {
+      color: $black-pure !important;
       font-weight: 800;
-      opacity: 0.7;
-      padding-left: 1.5rem;
+      margin-top: 1.5rem;
+      font-size: 1.1rem;
+      border-left: 4px solid $red-gdmotors;
+      padding-left: 12px;
     }
   }
 }
 
-// --- MODO OSCURO ---
-@include color-mode(dark) {
-  body { background-color: $black-deep; }
-  .sidebar {
-    --cui-sidebar-bg: #0d0d0d;
-    --cui-sidebar-color: #ffffff;
-    --cui-sidebar-nav-link-color: #cccccc;
-    border-right: 1px solid #1a1a1a;
+.form-label {
+  color: #000000 !important;
+  font-weight: 600 !important;
+  font-size: 0.8rem !important;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 6px;
+  opacity: 0.7;
+}
+
+.form-control, .form-select {
+  background-color: rgba(255, 255, 255, 0.8) !important;
+  border: 1px solid rgba(0, 0, 0, 0.1) !important;
+  color: #000000 !important;
+  font-size: 0.95rem !important; 
+  padding: 10px 14px !important;
+  border-radius: 8px !important;
+
+  &:focus {
+    background-color: #ffffff !important;
+    border-color: $red-gdmotors !important;
+    box-shadow: 0 0 0 4px rgba($red-gdmotors, 0.1) !important;
   }
 }
+
+.btn {
+  border-radius: 8px !important;
+  font-weight: 600 !important;
+  font-size: 0.85rem !important;
+  letter-spacing: 1px;
+  padding: 10px 24px !important;
+  text-transform: uppercase;
+}
+
+// --- ADAPTACIÓN TEMAS ---
+[data-coreui-theme="dark"] {
+  .sidebar {
+    --cui-sidebar-bg: #{$black-pure} !important;
+    background-color: $black-pure !important;
+  }
+}
+
+[data-coreui-theme="light"] {
+  body { background: #f4f7f9 !important; }
+}
+
+.sidebar-toggler { display: none !important; }

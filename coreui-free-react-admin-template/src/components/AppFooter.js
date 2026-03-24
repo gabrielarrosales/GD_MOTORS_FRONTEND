@@ -3,18 +3,14 @@ import { CFooter } from '@coreui/react'
 
 const AppFooter = () => {
   return (
-    <CFooter className="px-4">
+    <CFooter className="px-4 border-top">
       <div>
-        <a href="https://coreui.io" target="_blank" rel="noopener noreferrer">
-          CoreUI
-        </a>
-        <span className="ms-1">&copy; 2025 creativeLabs.</span>
+        <span className="fw-bold text-primary">GD Motors</span>
+        <span className="ms-1">&copy; 2025.</span>
       </div>
       <div className="ms-auto">
-        <span className="me-1">Powered by</span>
-        <a href="https://coreui.io/react" target="_blank" rel="noopener noreferrer">
-          CoreUI React Admin &amp; Dashboard Template
-        </a>
+        <span className="me-1">Made with</span>
+        <span style={{ color: '#E31E24' }}>❤️</span>
       </div>
     </CFooter>
   )
