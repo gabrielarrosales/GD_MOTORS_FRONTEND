@@ -1,67 +1,118 @@
-@use "@coreui/coreui/scss/coreui" as * with ( 
+@use "@coreui/coreui/scss/coreui" as * with (
   $enable-deprecation-messages: false,
+  $primary: #E31E24,
 );
+
 @use "@coreui/chartjs/scss/coreui-chartjs";
 @use "vendors/simplebar";
 
-body {
-  background-color: var(--cui-tertiary-bg);
-}
+// Variables de Marca
+$red-gdmotors: #E31E24;
+$red-gradient: linear-gradient(90deg, #E31E24 0%, #ff4d4d 100%);
+$black-deep: #0a0a0a;
 
+// --- ESTRUCTURA GENERAL ---
 .wrapper {
   width: 100%;
-  padding-inline: var(--cui-sidebar-occupy-start, 0) var(--cui-sidebar-occupy-end, 0);
-  will-change: auto;
-  @include transition(padding .15s);
+  padding-inline-start: var(--cui-sidebar-occupy-start, 0); 
+  transition: padding 0.15s ease-in-out;
 }
 
-.header > .container-fluid,
-.sidebar-header {
-  min-height: calc(4rem + 1px); // stylelint-disable-line function-disallowed-list
-}
-
-.sidebar-brand-full {
-  margin-left: 3px;
-}
-
-.sidebar-header {
-  .nav-underline-border {
-    --cui-nav-underline-border-link-padding-x: 1rem;
-    --cui-nav-underline-border-gap: 0;
-  }
-
+// --- SIDEBAR GD MOTORS ---
+.sidebar {
+  transition: all 0.2s ease-in-out;
+  
   .nav-link {
+    margin: 4px 10px;
+    border-radius: 8px !important;
     display: flex;
     align-items: center;
-    min-height: calc(4rem + 1px); // stylelint-disable-line function-disallowed-list
+    min-height: 48px; // Altura táctil estándar
+
+    // --- SOLUCIÓN INTEGRAL PARA ICONOS CORTADOS ---
+    .nav-icon {
+      width: 1.5rem !important; // Tamaño estándar para que el icono respire
+      height: 1.5rem !important;
+      font-size: 1.5rem;
+      margin-right: 1rem;
+      flex-shrink: 0; // Imprescindible: Evita que el icono se deforme
+      
+      // ANULA DESPLAZAMIENTOS DE LA PLANTILLA
+      transition: none !important;
+      transform: none !important; 
+    }
+
+    &.active {
+      background: $red-gradient !important;
+      box-shadow: 0 4px 12px rgba(227, 30, 36, 0.3);
+      color: #fff !important;
+      .nav-icon { color: #fff !important; }
+    }
+
+    &:hover:not(.active) {
+      background: rgba($red-gdmotors, 0.1) !important;
+      color: $red-gdmotors !important;
+      .nav-icon { color: $red-gdmotors !important; }
+    }
+  }
+
+  // --- ARREGLO PARA MODO ICONOS (NARROW) ---
+  &.sidebar-narrow:not(.sidebar-narrow-unfoldable) {
+    // Forzamos el ancho para que el logo de arriba sea la guía
+    width: var(--cui-sidebar-narrow-width, 64px) !important;
+
+    .nav-link {
+      margin: 4px auto !important; 
+      justify-content: center !important;
+      padding: 0 !important;
+      // Creamos un contenedor cuadrado perfecto para el icono
+      width: 48px !important; 
+      height: 48px !important;
+
+      .nav-icon {
+        margin-right: 0 !important; // Elimina el margen derecho del icono
+        display: block; // Asegura que el icono use todo su espacio
+        // Vuelve a anular cualquier movimiento extraño
+        transform: none !important;
+      }
+      
+      // Oculta el texto por completo para que no empuje el icono
+      span:not(.nav-icon), .nav-text {
+        display: none !important;
+      }
+    }
   }
 }
 
-.sidebar-toggler {
-  margin-inline-start: auto;
-}
-
-.sidebar-narrow,
-.sidebar-narrow-unfoldable:not(:hover) {
-  .sidebar-toggler {
-    margin-inline-end: auto;
+// --- MODO CLARO (Legibilidad Negra) ---
+[data-coreui-theme="light"] {
+  .sidebar {
+    --cui-sidebar-bg: #ffffff;
+    --cui-sidebar-color: #000000;
+    --cui-sidebar-nav-link-color: #000000;
+    border-right: 1px solid #d8dbe0;
+    
+    .nav-link {
+      color: #000000 !important; // Texto negro puro
+      .nav-icon { color: #000000 !important; }
+    }
+    
+    .nav-title {
+      color: #000000 !important;
+      font-weight: 800;
+      opacity: 0.7;
+      padding-left: 1.5rem;
+    }
   }
 }
 
-.header > .container-fluid + .container-fluid {
-  min-height: 3rem;
-}
-
-.footer {
-  min-height: calc(3rem + 1px); // stylelint-disable-line function-disallowed-list
-}
-
+// --- MODO OSCURO ---
 @include color-mode(dark) {
-  body {
-    background-color: var(--cui-dark-bg-subtle);
-  }
-
-  .footer {
-    --cui-footer-bg: var(--cui-body-bg);
+  body { background-color: $black-deep; }
+  .sidebar {
+    --cui-sidebar-bg: #0d0d0d;
+    --cui-sidebar-color: #ffffff;
+    --cui-sidebar-nav-link-color: #cccccc;
+    border-right: 1px solid #1a1a1a;
   }
 }
