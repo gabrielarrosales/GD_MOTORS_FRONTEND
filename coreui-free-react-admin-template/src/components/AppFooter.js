@@ -9,8 +9,7 @@ const AppFooter = () => {
         <span className="ms-1">&copy; 2025.</span>
       </div>
       <div className="ms-auto">
-        <span className="me-1">Made with</span>
-        <span style={{ color: '#E31E24' }}>❤️</span>
+        <span className="me-1">Made by  GR</span>
       </div>
     </CFooter>
   )
