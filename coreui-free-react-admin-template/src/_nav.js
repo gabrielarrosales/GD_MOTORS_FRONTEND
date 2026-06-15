@@ -39,12 +39,7 @@ const _nav = [
       {
         component: CNavItem,
         name: 'Tasas del Día',
-        to: '/finanzas/tasas',
-      },
-      {
-        component: CNavItem,
-        name: 'Cierre de Caja',
-        to: '/finanzas/caja',
+        to: '/taza-del-dia',
       },
     ],
   },
@@ -61,17 +56,7 @@ const _nav = [
       {
         component: CNavItem,
         name: 'Lista de Precios',
-        to: '/servicios/lista',
-      },
-      {
-        component: CNavItem,
-        name: 'Toppings (Extras)',
-        to: '/servicios/toppings',
-      },
-      {
-        component: CNavItem,
-        name: 'Recetas de Insumos',
-        to: '/servicios/recetas',
+        to: '/lista-de-precios',
       },
     ],
   },
@@ -88,12 +73,7 @@ const _nav = [
       {
         component: CNavItem,
         name: 'Stock de Insumos',
-        to: '/inventario/stock',
-      },
-      {
-        component: CNavItem,
-        name: 'Proveedores',
-        to: '/inventario/proveedores',
+        to: '/stock-insumos',
       },
     ],
   },
@@ -106,29 +86,9 @@ const _nav = [
       {
         component: CNavItem,
         name: 'Lista de Empleados',
-        to: '/personal/lista',
-      },
-      {
-        component: CNavItem,
-        name: 'Habilidades',
-        to: '/personal/habilidades',
-      },
-      {
-        component: CNavItem,
-        name: 'Comisiones Semanales',
-        to: '/personal/comisiones',
+        to: '/lista-empleados',
       },
     ],
-  },
-  {
-    component: CNavTitle,
-    name: 'Configuración',
-  },
-  {
-    component: CNavItem,
-    name: 'Ajustes del Sistema',
-    to: '/configuracion',
-    icon: <CIcon icon={cilSettings} customClassName="nav-icon" />,
   },
 ]
 
