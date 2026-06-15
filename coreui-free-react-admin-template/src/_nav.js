@@ -26,7 +26,7 @@ const _nav = [
   },
   {
     component: CNavItem,
-    name: 'Nueva Orden',
+    name: 'Ordenes',
     to: '/ordenes/nueva',
     icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
   },
